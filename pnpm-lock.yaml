@@ -79,6 +79,14 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
+  packages/components:
+    dependencies:
+      '@yd/hooks':
+        specifier: workspace:^
+        version: link:../hooks
+
+  packages/hooks: {}
+
 packages:
 
   '@adobe/css-tools@4.4.2':

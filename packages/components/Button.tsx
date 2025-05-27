@@ -3,6 +3,7 @@ import React from 'react'
 import './button.css'
 
 import { cva } from 'class-variance-authority'
+import { useCount } from '@yd/hooks'
 
 const buttonClassnames = cva(['font-semibold', 'border', 'rounded'], {
   variants: {
@@ -49,11 +50,12 @@ const buttonClassnames = cva(['font-semibold', 'border', 'rounded'], {
   }
 })
 
-export interface ButtonProps  extends React.ButtonHTMLAttributes<HTMLButtonElement>{
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Is this the principal call to action on the page? */
-  variant?: "primary" | "secondary"  
+  variant?: 'primary' | 'secondary'
   /** How large should the button be? */
-  size?: 'small' | 'medium'  | 'large'
+  size?: 'small' | 'medium' | 'large'
   /** Button contents */
   children: React.ReactNode
   /** Optional click handler */
@@ -62,19 +64,24 @@ export interface ButtonProps  extends React.ButtonHTMLAttributes<HTMLButtonEleme
 
 /** Primary UI component for user interaction */
 export const Button = ({
-  variant = "primary",
+  variant = 'primary',
   size = 'medium',
   children,
   ...props
 }: ButtonProps) => {
-  
+  const { count, inc } = useCount()
+
   return (
     <button
       type="button"
-      className={buttonClassnames({variant, size})}
+      className={buttonClassnames({ variant, size })}
       {...props}
+      onClick={() => {
+        inc()
+      }}
     >
-      {children}
+     
+      {children}: {count}
     </button>
   )
 }
